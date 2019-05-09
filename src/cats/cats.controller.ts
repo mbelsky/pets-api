@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
-import { CreateCatDto } from './cats.dto'
+import { CatDto, CreateCatDto } from './cats.dto';
+import { CatsService } from './cats.service';
 
 interface PayloadFailure {
   error: string;
@@ -11,33 +12,24 @@ interface PayloadSuccess<T> {
 
 type Payload<T> = PayloadSuccess<T> | PayloadFailure;
 
-interface Cat {
-  id: number;
-  name: string;
-}
-
-const CATS: Cat[] = [
-  { id: 0, name: 'Ashe' },
-  { id: 1, name: 'Vayne' },
-  { id: 3, name: 'Taliya' },
-  { id: 4, name: 'Seju' },
-];
-
 @Controller('cats')
 export class CatsController {
+  constructor(private readonly catsService: CatsService) {}
+
   @Get()
-  findAll(): string {
-    return 'All cats here';
+  findAll(): CatDto[] {
+    return this.catsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param() params): Payload<Cat> {
-    const cat = CATS.find(({ id }) => id === Number(params.id))
-    return cat ? { payload: cat } : { error: `Cat with id=${params.id} not found` }
+  findOne(@Param('id') id: string): Payload<CatDto> {
+    const cat = this.catsService.findOne(Number(id));
+    return cat ? { payload: cat } : { error: `Cat with id=${id} not found` };
   }
 
   @Post()
   create(@Body() body: CreateCatDto) {
-    return 'Спасибо за добавление нового котика в базу. Он будет отображен в общем списке после одобрения администратором.'
+    this.catsService.create(body);
+    return 'Спасибо за добавление нового котика в базу. Он будет отображен в общем списке после одобрения администратором.';
   }
 }
