@@ -11,17 +11,10 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 
+import { Payload } from '../types';
+
 import { CatDto, CreateCatDto } from './cats.dto';
 import { CatsService } from './cats.service';
-
-interface PayloadFailure {
-  error: string;
-}
-interface PayloadSuccess<T> {
-  payload: T;
-}
-
-type Payload<T> = PayloadSuccess<T> | PayloadFailure;
 
 @Controller('cats')
 export class CatsController {
