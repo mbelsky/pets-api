@@ -10,6 +10,13 @@ export class CatsService {
     { id: 4, threadId: 104, name: 'Garen', gender: 'male' },
   ];
 
+  private readonly catPhotoUrls: { [key: string]: string } = {
+    0: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/June_odd-eyed-cat_cropped.jpg/600px-June_odd-eyed-cat_cropped.jpg',
+    1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Black_bicolore_Maine_Coon_with_Odd_Eyed.jpg/440px-Black_bicolore_Maine_Coon_with_Odd_Eyed.jpg',
+    2: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Odd-eyed-domestic-cat.jpg/440px-Odd-eyed-domestic-cat.jpg',
+    3: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Odd_Eyed_Black_Cat.jpg',
+  };
+
   create(cat: CreateCatDto) {
     // TODO:
   }
@@ -20,5 +27,9 @@ export class CatsService {
 
   findOne(id: number): void | CatDto {
     return this.cats.find(cat => cat.id === id);
+  }
+
+  findPhoto(id: string): void | string {
+    return this.catPhotoUrls[id];
   }
 }

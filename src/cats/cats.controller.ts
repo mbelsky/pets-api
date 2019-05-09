@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   HttpException,
   HttpStatus,
   Param,
@@ -35,6 +36,21 @@ export class CatsController {
   findOne(@Param('id', ParseIntPipe) id: number): Payload<CatDto> {
     const cat = this.catsService.findOne(id);
     return cat ? { payload: cat } : { error: `Cat with id=${id} not found` };
+  }
+
+  @Get('photo/:id')
+  findPhoto(
+    @Headers('x-api-key') apiKey,
+    @Param('id') id: string,
+  ): Payload<string> {
+    if (apiKey !== 'vzuh') {
+      throw new HttpException('Wrong api key', HttpStatus.UNAUTHORIZED);
+    }
+
+    const photo = this.catsService.findPhoto(id);
+    return photo
+      ? { payload: photo }
+      : { error: `Cat's photo by id=${id} not found` };
   }
 
   @Post()
