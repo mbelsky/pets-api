@@ -1,75 +1,73 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# HTTP & JS
 
-[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
-[travis-url]: https://travis-ci.org/nestjs/nest
-[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
-[linux-url]: https://travis-ci.org/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
-<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
-<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
-<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
-  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Цель: научиться работать с сетью из JS
 
-## Description
+Данный репозиторий хранит код примитивного серверного приложения которое будет отвечать на запросы нашей web-страницы.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Базовое знание
 
-## Installation
+### Необходимая теория
+
+ * что такое HTTP-протокол, 
+ * HTTP-запрос, 
+ * виды HTTP-запросов
+
+### Первые шаги
+
+Скачать репозиторий. Перейти в папку с проектом и выполнить:
 
 ```bash
-$ npm install
+# Для установки зависимостей проекта
+npm install
+# Для запуска сервера
+npm run start:prod
 ```
 
-## Running the app
+После запуска сервер будет отвечать на HTTP-запросы отправленные на `http://localhost:3000/`. Для остановки работы сервера – Ctrl+C в терминале.
 
-```bash
-# development
-$ npm run start
+Список запросов которые поддерживает сервер:
 
-# watch mode
-$ npm run start:dev
+Method  | Route             | Description
+----    | ---               | ---
+GET     | /cats             | Получить всех котиков
+GET     | /cats/:id         | Детальная информация о коте
+GET     | /cats/photo/:id   | Ссылка на фото кота. В запросе должен быть заголовок `x-api-key`, со значением `vzuh`
+GET     | /cats/thread/:id  | Комментарии пользователей о котике. Здесь `id` – это id "темы", а не котика. Приходит в ответе запроса `/cats/:id`
+POST    | /cats             | Добавление нового котика в список. Данные передаются в виде `application/json`
 
-# production mode
-$ npm run start:prod
-```
+### Тестирование сервера и себя
 
-## Test
+Для удобного формирования запросов к серверу скачать приложение [Postman](https://www.getpostman.com/downloads/). Распаковать скачанный архив, установить и запустить приложение. Зарегистрировать аккаунт, подтвердить и войти.
 
-```bash
-# unit tests
-$ npm run test
+Теперь можно проверить работоспособность описанных выше запросов. [Пример](/assets/postman-how-to.mov?raw=true) как это делать.
 
-# e2e tests
-$ npm run test:e2e
+## AJAX
 
-# test coverage
-$ npm run test:cov
-```
+После того, как стало ясно что такое HTTP-запросы и как с ними жить осталось разобраться как с ними работать из JS.
 
-## Support
+### Теория
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Глава 18.1 из "Подробного руководства по JS" Флэнагана + статья https://learn.javascript.ru/xmlhttprequest.
 
-## Stay in touch
+### Практика
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+На основе этого материала для имеющегося сервера написать веб-приложение:
+ * Экран разделен на две части. Список слева и детали справа.
+ * Слева – список всех котов.
+ * Нажатие по элементу-коту инициирует к серверу запрос за детальной информацией и отображает её в правой части экрана:
+   * пол
+   * имя
+   * возраст
+   * фото
+   * комментарии
+ * В верху страницы форма для добавления нового питомца в список.
 
-## License
+![front](/assets/front.png)
 
-  Nest is [MIT licensed](LICENSE).
+Разрабатывать проект в отдельной от сервера папке, в ветке `develop`, чтобы потом сделать pull-request в `master`.
+
+## Вишенка
+
+После того как HTTP-запросы и XMLHTTPRequest освоены, можно знакомиться с [fetch](http://learn.javascript.ru/fetch) и переписать реализацию с его использованием.
+
+`fetch` работает на основе [Promis-ов](https://learn.javascript.ru/promise-basics), статья поможет понять как с этим работать.
