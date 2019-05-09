@@ -4,10 +4,10 @@ import { CatDto, CreateCatDto } from './cats.dto';
 @Injectable()
 export class CatsService {
   private readonly cats: CatDto[] = [
-    { id: 0, name: 'Ashe' },
-    { id: 1, name: 'Vayne' },
-    { id: 3, name: 'Taliya' },
-    { id: 4, name: 'Seju' },
+    { id: 0, threadId: 100, name: 'Ashe', gender: 'female' },
+    { id: 1, threadId: 101, name: 'Vayne', gender: 'female' },
+    { id: 3, threadId: 103, name: 'Kayn', gender: 'male' },
+    { id: 4, threadId: 104, name: 'Garen', gender: 'male' },
   ];
 
   create(cat: CreateCatDto) {

@@ -2,7 +2,9 @@ import { Matches, Max, Min, MinLength } from 'class-validator';
 
 export class CatDto {
   readonly id: number;
+  readonly threadId: number;
   readonly name: string;
+  readonly gender: string;
 }
 
 export class CreateCatDto {
