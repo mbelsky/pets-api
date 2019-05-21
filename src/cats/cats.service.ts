@@ -6,6 +6,7 @@ export class CatsService {
   private readonly cats: CatDto[] = [
     { id: 0, threadId: 100, name: 'Ashe', gender: 'female', age: 8 },
     { id: 1, threadId: 101, name: 'Vayne', gender: 'female', age: 6 },
+    { id: 2, threadId: 102, name: 'Kayle', gender: 'female', age: 1 },
     { id: 3, threadId: 103, name: 'Kayn', gender: 'male', age: 7 },
     { id: 4, threadId: 104, name: 'Garen', gender: 'male', age: 3 },
   ];
