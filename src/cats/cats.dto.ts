@@ -5,6 +5,7 @@ export class CatDto {
   readonly threadId: number;
   readonly name: string;
   readonly gender: string;
+  readonly age: number;
 }
 
 export class CreateCatDto {
